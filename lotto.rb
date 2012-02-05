@@ -62,6 +62,7 @@ end
 
 class Main
   def initialize
+
     @lucky_numbers = []
     i = 0 
     loop do
@@ -73,7 +74,15 @@ class Main
     end
 
     puts "lotto number: "
-    @lotto_number = LuckyNumber.new
+    @lotto_numbers = []
+    i = 0
+    loop do
+      i += 1
+      puts "lotto number #{i}:"
+      lotto_number = LuckyNumber.new
+      break if lotto_number.nums.empty?
+      @lotto_numbers << lotto_number
+    end
 
     # overview
     puts "your lucky numbers:"
@@ -81,13 +90,18 @@ class Main
       puts lucky_number.nums.to_s
     end
     puts "your lotto numbers:"
-    puts @lotto_number.nums.to_s
-
+    @lotto_numbers.each do |lotto_number|
+      puts lotto_number.nums.to_s
+    end
   end
 
   def go
-    @lucky_numbers.each do |lucky_number|
-      lucky_number.vs(@lotto_number)
+    @lotto_numbers.each do |lotto_number|
+      puts lotto_number.nums.to_s.green
+      @lucky_numbers.each do |lucky_number|
+        print "\t"
+        lucky_number.vs(lotto_number)
+      end
     end
   end
 end
